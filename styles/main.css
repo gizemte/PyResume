@@ -1,0 +1,20 @@
+a{
+color: #549bd6 !important;
+font-weight: 600;
+text-decoration: none !important;
+}
+
+a:hover {
+color: #484848 !important;
+text-decoration: underline !important;
+}
+
+ul {list-style-type:disc ;}
+
+hr{
+ margin-top: 0px;
+ margin-bottom: 1%;
+ border: none;
+ border-top: 2px solid #ccc;
+ width: 80%;
+}
