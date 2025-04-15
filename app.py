@@ -5,10 +5,26 @@ from PIL import Image
 
 #Path settings
 current_path = Path(__file__).parent
+asset_path = Path(__file__).parent/"assets"
 css_file = current_path/"styles"/"main.css"
 resume_file = current_path/"assets"/"GIZEM_TELCEKEN_CV.pdf"
 profile_pic = current_path/"assets"/"profile-pic.JPG"
+pdf_list = sorted(asset_path.glob('*.pdf'),key=lambda x: x.name)
+# Remove unwanted file(s), e.g., 'test.pdf'
+pdf_list = [f for f in pdf_list if f.name != 'GIZEM_TELCEKEN_CV.pdf']
 
+
+cert_names = [
+"**CBAP \(Certified Business Analysis Professional) Prep – IIBA Advanced BABOK v3**, Turkey, October 2021",
+"**CMMi High Maturity Training**, Turkey, August 2015",
+"**Devops For Developers**, Turkey, October 2022",
+"**Introduction to Linux system administration**, Turkey, March 2016",
+"**Jira Work Management Fundamentals**, Turkey, February 2024",
+"**Linux operating system Network services and system administration**, Turkey, May 2016",
+"**Dive Into Ansible - Beginner to Expert in Ansible - DevOps**, Udemy, April 2025"
+]
+
+#print(pdf_list[0])
 #General Settings
 page_title = "Digital CV - Gizem Telceken"
 page_icon = ":rocket:"
@@ -32,6 +48,7 @@ with open(css_file, "r") as f:
 with open(resume_file, "rb") as pdf:
     pdfbyte = pdf.read()
     profile_pic = Image.open(profile_pic)
+
 
 #top section
 col1, col2 = st.columns(2, gap="small")
@@ -94,7 +111,7 @@ st.write(f"""
 
 st.write("---")
 st.subheader("PROFESSIONAL EXPERIENCE")
-st.write("**Deployment & Validation Lead Engineer Telenity, Istanbul | 08/2022 – Present**")
+st.write("**Deployment & Validation Lead Engineer | Telenity, Istanbul | 08/2022 – Present**")
 st.write("""
 - Leading the deployment and validation of Digital Service Platforms (DSPs) for 7+ customized projects, including **Ooredoo Algeria, Djezzy, and Telecel Ghana**, with a 95% deployment success rate
 - Overseeing ticket management and tracking enhancement requests (ERs)
@@ -107,8 +124,7 @@ st.write("""
 - Led a team of 4 engineers, coordinating tasks for multiple projects concurrently
 """)
 
-st.write("**Master Expert Application Operation Engineer**")
-st.write("Turkcell, Istanbul | 04/2022 – 08/2022")
+st.write("**Master Expert Application Operation Engineer | Turkcell, Istanbul | 04/2022 – 08/2022**")
 st.write("""
 - Manage charging and rating systems, ensuring high availability and stability
 - Deploy application patches and upgrades, assuring seamless service continuity
@@ -116,8 +132,7 @@ st.write("""
 - Resolve customer cases and findings
 """)
 
-st.write("**IT Charging Operation Senior Specialist**")
-st.write("Turk Telekom, Istanbul | 05/2018 – 04/2022")
+st.write("**IT Charging Operation Senior Specialist | Turk Telekom, Istanbul | 05/2018 – 04/2022**")
 st.write("""
 - Managing and maintaining real-time production charging systems in the company’s prepaid domain on a 7/24 basis with 99% SLA compliance
 - Keeping system within minimum service failure time and ensuring high availability of services within SLAs
@@ -130,8 +145,7 @@ st.write("""
 - Operation Phase Leader for major projects such as **WiFi Calling, VoLTE Phase 2, Voucher Management System Replacement, and Provisioning Replacement**
 """)
 
-st.write("**IT Billing & Mediation Operation Specialist**")
-st.write("Vodafone, Istanbul | 07/2016 – 05/2018")
+st.write("**IT Billing & Mediation Operation Specialist | Vodafone, Istanbul | 07/2016 – 05/2018**")
 st.write("""
 - Maintain and monitored billing and mediation systems with 99% SLA compliance
 - Manage Bulk SMS services of VFNET, collaborated with vendors, and resolved technical issues.
@@ -139,8 +153,7 @@ st.write("""
 - Supporting on project based with Solution and CRM teams
 """)
 
-st.write("**Assistant Quality Engineer**")
-st.write("Huawei Technologies Co., Istanbul | 09/2014 – 06/2016")
+st.write("**Assistant Quality Engineer | Huawei Technologies Co., Istanbul | 09/2014 – 06/2016**")
 st.write("""
 - Support team leaders in terms of version management, software release processes, and audits under CMMi Level 5 standards
 - Managed JIRA, SVN, and defect tracking systems, assuring project compliance
@@ -157,12 +170,16 @@ st.write("Yıldız Technical University, Istanbul, 2014, GPA 3.50/4.00")
 
 st.write("---")
 st.subheader("🏅CERTIFICATIONS & TRAINING")
-st.write(f"""
-- **Dive Into Ansible - Beginner to Expert in Ansible - DevOps**, Udemy, April 2025
-- **Jira Work Management Fundamentals**, Turkey, February 2024
-- **Devops For Developers**, Turkey, October 2022
-- **CBAP (Certified Business Analysis Professional) Prep – IIBA Advanced BABOK v3**, Turkey, October 2021
-- **Linux operating system Network services and system administration**, Turkey, May 2016
-- **Introduction to Linux system administration**, Turkey, March 2016
-- **CMMi High Maturity Training**, Turkey, August 2015
-""")
+
+for file, label in zip(pdf_list, cert_names):
+    with open(file, "rb") as pdffiles:
+        pdfbytes = pdffiles.read()
+        st.download_button(
+            label=f"⬇️{label}",
+            data=pdfbytes,
+            file_name=file.name,
+            mime="application/pdf",
+            key=str(file)
+        )
+
+
