@@ -15,7 +15,7 @@ pdf_list = [f for f in pdf_list if f.name != 'GIZEM_TELCEKEN_CV.pdf']
 
 
 cert_names = [
-"**CBAP \(Certified Business Analysis Professional) Prep – IIBA Advanced BABOK v3**, Turkey, October 2021",
+"**CBAP (Certified Business Analysis Professional) Prep – IIBA Advanced BABOK v3**, Turkey, October 2021",
 "**CMMi High Maturity Training**, Turkey, August 2015",
 "**Devops For Developers**, Turkey, October 2022",
 "**Introduction to Linux system administration**, Turkey, March 2016",
