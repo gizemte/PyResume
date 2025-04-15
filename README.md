@@ -1,1 +1,1 @@
-Digital DV project with Python streamlit library
+Digital CV project with Python streamlit library
